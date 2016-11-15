@@ -9,7 +9,7 @@ alphabet.each do |letter|
   if vowels2.include?(letter)
   vowels1[letter] = index
   else 
-end
+  end
   index += 1
 end
 

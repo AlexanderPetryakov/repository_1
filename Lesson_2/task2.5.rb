@@ -16,9 +16,9 @@ if (year%4 == 0 && year%100 != 0) || year%400 == 0
     days += arr_leap_year[index]
   end
 else
-    for index in (0...month-1)
+  for index in (0...month-1)
     days += arr_year[index]
-    end
+  end
 end 
 
 days += date

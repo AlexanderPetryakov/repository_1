@@ -19,5 +19,5 @@ hash1.keys.each do |month|
   if hash1[month] == 30
   puts month
   else 
-end
+  end
 end

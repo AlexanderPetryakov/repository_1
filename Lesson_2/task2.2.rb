@@ -4,8 +4,8 @@ i = 10
 new_array = []
 
 while i <= 100 do
-	new_array << i
-	i += 5
+  new_array << i
+  i += 5
 end
 
 #puts new_array
