@@ -15,9 +15,6 @@ hash1 = {
 "Dec" => 31
 }
 
-hash1.keys.each do |month|
-  if hash1[month] == 30
-  puts month
-  else 
-  end
+hash1.each do |month, days|
+  puts month if days == 30
 end

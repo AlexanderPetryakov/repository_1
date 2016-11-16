@@ -9,18 +9,12 @@ date = gets.to_i
 days = 0
 
 arr_year = [31,28,31,30,31,30,31,31,30,31,30,31]
-arr_leap_year = [31,29,31,30,31,30,31,31,30,31,30,31]
 
-if (year%4 == 0 && year%100 != 0) || year%400 == 0
-  for index in (0...month-1)
-    days += arr_leap_year[index]
-  end
-else
-  for index in (0...month-1)
-    days += arr_year[index]
-  end
-end 
-
+arr_year[1] = 29 if (year%4 == 0 && year%100 != 0) || year%400 == 0
+  
+for index in (0...month-1)
+  days += arr_year[index]
+end
+  
 days += date
- 
 puts "Порядковый номер даты: #{days}"
