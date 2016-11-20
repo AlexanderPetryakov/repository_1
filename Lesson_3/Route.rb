@@ -1,15 +1,13 @@
 class Route
 
   def initialize(from, to)
-    @to = to
     @stations_list = []
     @stations_list << from
     @stations_list << to
   end
 
   def add_station(station)
-    @stations_list[-1] = station
-    @stations_list << @to
+    @stations_list.insert(-2, station)
   end
 
   def delete_station(station)
@@ -17,7 +15,7 @@ class Route
   end
 
   def get_stations_list
-    @stations_list.each {|station| puts station.get_name}
+    @stations_list.each {|station| puts station.name}
   end
 
   def get_stations
