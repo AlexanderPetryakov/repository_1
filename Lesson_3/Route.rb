@@ -7,10 +7,6 @@ class Route
     @stations_list << to
   end
 
-  def get_from
-    @from
-  end
-
   def add_station(station)
     @stations_list[-1] = station
     @stations_list << @to
