@@ -6,6 +6,10 @@ class Train
     @cars_amount = cars_amount
     @speed = 0
   end
+
+  def get_type
+    @type
+  end
   
   attr_accessor :speed
     
