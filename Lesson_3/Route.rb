@@ -1,9 +1,7 @@
 class Route
 
   def initialize(from, to)
-    @stations_list = []
-    @stations_list << from
-    @stations_list << to
+    @stations_list = [from,to]
   end
 
   def add_station(station)

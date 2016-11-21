@@ -23,7 +23,7 @@ class Train
   end
 
   def delete_car
-    @cars_amount -= 1 if (@speed == 0 && @cars_amount > 0)
+    @cars_amount -= 1 if @speed == 0 && @cars_amount > 0
   end
   
   def set_route(route)
@@ -35,21 +35,25 @@ class Train
     @current_station += 1 if (@current_station + 1) < @stations_list.length
   end
 
-  def get_stations_list
+  def get_previous_station
     previous_station = @current_station - 1
     if previous_station >= 0
       puts "Предыдущая станция: #{@stations_list.fetch(previous_station).name}" 
-    else puts "Предыдущая станция: нет станции"
+    else
+      puts "Предыдущая станция: нет станции"
     end
+  end
     
-    puts "Текущая станция: #{@stations_list.fetch(@current_station).name}" 
+  def get_current_station  
+    puts "Текущая станция: #{@stations_list.fetch(@current_station).name}"
+  end   
     
+  def get_next_station
     next_station = @current_station + 1
     if next_station < @stations_list.length
       puts "Следующая станция: #{@stations_list.fetch(next_station).name}" 
-    else puts "Следующая станция: нет станции"
+    else
+      puts "Следующая станция: нет станции"
     end
-  end
+  end  
 end
-    
-          
