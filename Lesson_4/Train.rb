@@ -2,6 +2,7 @@ class Train
 
   attr_accessor :speed
   attr_reader :type
+  attr_reader :number
 
   def initialize(number)
     @number = number
@@ -18,21 +19,21 @@ class Train
     puts "Количество вагонов = #{@wagons.length}"
   end
   
-  def add_wagons(wagon, amount = 1)
+  def add_wagon(wagon)
     if @speed == 0
-    	@wagons.concat(Array.new(amount, wagon))
+    	@wagons << wagon
     else
     	puts "Поезд находится в движении."
     end
   end
 
-  def delete_wagons(amount = 1)
-    if @speed != 0 
-      puts "Поезд находится в движении."
-    elsif @wagons.length <= amount - 1
-    	@wagons.clear
-    else
-     	@wagons.slice!(0, amount)   #удаление вагонов
+  def delete_wagon(wagon)
+      if @speed != 0 
+        puts "Поезд находится в движении."
+      elsif !@wagons.include?(wagon)
+        puts ("Вагона нет в составе поезда.")      
+      else
+     	  @wagons.delete(wagon)
     end
   end
 
