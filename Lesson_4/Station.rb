@@ -9,12 +9,14 @@ class Station
   
   def train_arrival(train)
     @trains_on_station << train
+    puts "Поезд прибыл на станцию!"
   end
   
   def get_trains_list
-    print "Поезда на станции: №№ "
+    puts "Список поездов на станции."
     @trains_on_station.each do |train| 
-      print "#{train.number} "
+      #print "#{train.number} "
+      puts "Поезд номер #{train.number}, #{train.type}."
     end
   end
   
@@ -27,6 +29,7 @@ class Station
   def train_departure(train)
     if @trains_on_station.include?(train)
       @trains_on_station.delete(train)
+      puts "Поезд отбыл со станции!"
     else
       puts "Поезд уже отбыл."
     end

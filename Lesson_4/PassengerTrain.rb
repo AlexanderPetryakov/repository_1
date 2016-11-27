@@ -6,7 +6,7 @@ class PassengerTrain < Train
     self.type = "Пассажирский"
   end
 
-  def add_wagons(wagon, amount = 1)
+  def add_wagons(wagon)
     if wagon.class == Coach
       super
     else

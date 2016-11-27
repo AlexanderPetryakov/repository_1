@@ -22,6 +22,7 @@ class Train
   def add_wagon(wagon)
     if @speed == 0
     	@wagons << wagon
+      puts "Вагон прицеплен!"
     else
     	puts "Поезд находится в движении."
     end
@@ -34,6 +35,17 @@ class Train
         puts ("Вагона нет в составе поезда.")      
       else
      	  @wagons.delete(wagon)
+    end
+  end
+
+  def delete_last_wagon
+    if @speed != 0 
+      puts "Поезд находится в движении."
+    elsif @wagons.empty?
+      puts "В составе поезда вагонов нет."
+    else
+      @wagons.delete_at(-1)
+      puts "Вагон отцеплен!"
     end
   end
 
