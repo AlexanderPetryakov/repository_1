@@ -1,19 +1,3 @@
-module Manufacturer
-  
-  def set_manufacturer(name)
-    self.manufacturer = name
-  end
-
-  def get_manufacturer
-    self.manufacturer
-  end
-
-  protected
-  attr_accessor :manufacturer
-
-end
-
-
 class Train
 
   include Manufacturer
@@ -23,7 +7,7 @@ class Train
 
   @@instances = {}
 
-  def self.find_train(number)
+  def self.find(number)
     if @@instances.has_key?(number)
       @@instances[number]
     else
