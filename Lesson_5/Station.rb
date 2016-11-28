@@ -5,11 +5,7 @@ class Station
   @@instances = {}
 
   def self.all
-    output_arr = []
-    @@instances.each_value do |station|
-    	#station                           #return hash
-      output_arr << station            #return array
-    end
+    output_arr = @@instances.values    
     output_arr
   end
 

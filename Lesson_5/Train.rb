@@ -8,11 +8,7 @@ class Train
   @@instances = {}
 
   def self.find(number)
-    if @@instances.has_key?(number)
-      @@instances[number]
-    else
-      nil
-    end
+    @@instances[number]
   end
 
   def initialize(number) #number - строка
