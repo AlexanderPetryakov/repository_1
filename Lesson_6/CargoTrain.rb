@@ -9,8 +9,9 @@ class CargoTrain < Train
   def add_wagons(wagon, amount = 1)
     if wagon.class == CargoWagon
       super
+      true
     else
-      puts "Тип вагона не подходит типу поезда."
+      false
     end
   end
 
