@@ -11,7 +11,7 @@ class Station
   end
 
   def self.all
-    output_arr = @@instances.values    
+    @@instances.values    
   end
 
   def initialize(name)
