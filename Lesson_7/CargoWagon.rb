@@ -4,8 +4,7 @@ class CargoWagon < Wagon
   attr_reader :capacity
 
   def initialize(capacity)
-    super()
-    @capacity = capacity
+    super
     @loaded = 0
     self.type = "Грузовой"
   end

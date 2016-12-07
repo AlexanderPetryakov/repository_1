@@ -4,7 +4,8 @@ class Wagon
   attr_reader :type
   attr_reader :number
   
-  def initialize
+  def initialize(capacity)
+  	@capacity = capacity
     @type
     @number = ((Random.rand)*1000000).to_i
   end

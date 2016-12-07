@@ -206,9 +206,7 @@ def no_station
 end
 
 def load_train(train)
-  #block = proc { |wagon| puts "блок работает"}
-  block = proc {|wagon| wagon.load(Random.rand(wagon.curr_capacity?))}
-  train.wagons_to_block(block)
+  train.wagons_to_block{|wagon| wagon.load(Random.rand(wagon.curr_capacity?))}
   puts ""
   puts "К поезду №#{train.number} прицеплены вагоны, вагоны загружены."
 end
@@ -314,7 +312,7 @@ def list_menu
 end
 
 def stations_list
-  blockSt = proc {|train| puts "Поезд №#{train.number}, #{train.type}, #{train.get_wagons_amount} вагонов."}
+  #blockSt = proc {|train| puts "Поезд №#{train.number}, #{train.type}, #{train.get_wagons_amount} вагонов."}
   
   puts ""
   puts "--Список станций--"
@@ -322,14 +320,14 @@ def stations_list
     puts ""
     puts "#{station.name}"
     puts "Поезда на станции:"
-    station.trains_to_block(blockSt)
+    station.trains_to_block{|train| puts "Поезд №#{train.number}, #{train.type}, #{train.get_wagons_amount} вагонов."}
   end
   list_menu
 end
 
 def trains_list
-  blockPT = proc {|wagon, index| puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}: мест занято #{wagon.taken?}, мест свободно #{wagon.free?}."}
-  blockCT = proc {|wagon, index| puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}: загружено #{wagon.loaded?}, свободно #{wagon.free?}."}
+ # blockPT = proc {|wagon, index| puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}: мест занято #{wagon.taken?}, мест свободно #{wagon.free?}."}
+ # blockCT = proc {|wagon, index| puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}: загружено #{wagon.loaded?}, свободно #{wagon.free?}."}
 
   puts ""
   puts "--Список поездов--"
@@ -337,8 +335,8 @@ def trains_list
     puts ""
     puts "Поезд №#{train.number}, #{train.type}:"
     puts "Вагоны в составе поезда:"
-    train.wagons_to_block_with_index(blockPT) if train.class == PassengerTrain
-    train.wagons_to_block_with_index(blockCT) if train.class == CargoTrain
+    train.wagons_to_block_with_index{|wagon, index| puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}: мест занято #{wagon.taken?}, мест свободно #{wagon.free?}."} if train.class == PassengerTrain
+    train.wagons_to_block_with_index{|wagon, index| puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}: загружено #{wagon.loaded?}, свободно #{wagon.free?}."} if train.class == CargoTrain
   end
   list_menu
 end

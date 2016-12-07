@@ -4,8 +4,7 @@ class Coach < Wagon
   attr_reader :capacity
 
   def initialize(capacity)
-    super()
-    @capacity = capacity
+    super
     @seats_taken = 0
     self.type = "Пассажирский"
   end

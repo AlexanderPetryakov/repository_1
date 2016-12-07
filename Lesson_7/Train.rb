@@ -59,11 +59,11 @@ class Train
     end
   end
 
-  def wagons_to_block(block)
+  def wagons_to_block(&block)
     @wagons.each {|wagon| block.call(wagon)}
   end
 
-  def wagons_to_block_with_index(block)
+  def wagons_to_block_with_index(&block)
     @wagons.each_with_index {|wagon, index| block.call(wagon, index+1)}
   end
 
