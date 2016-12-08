@@ -176,8 +176,8 @@ def wagons_to_train
         train.add_wagon(CargoWagon.new(72))
       end
     end
+    load_train(train)
   end
-  load_train(train)
   edit_train_menu
 end
 
