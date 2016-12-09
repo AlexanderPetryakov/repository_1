@@ -14,6 +14,11 @@ def start
 end
 
 def main_menu
+  main_menu_text
+  main_menu_choice
+end
+
+def main_menu_text
   puts ''
   puts '--Главное меню--'
   puts '1. Создать новую станцию.'
@@ -22,20 +27,18 @@ def main_menu
   puts '4. Просмотр списка станций и поездов.'
   puts '0. Выйти из программы.'
   print 'Введите номер пункта меню: '
+end
 
+def main_menu_choice
   choice = gets.chomp.to_i
   case choice
   when 1
-    # puts 1
     new_station
   when 2
-    # puts 2
     new_train
   when 3
-    # puts 3
     edit_train_menu
   when 4
-    # puts 5
     list_menu
   when 0
     exit
@@ -48,19 +51,27 @@ end
 def new_station
   puts ''
   puts '--Создание станции--'
-  begin
-    Station.new(ask_name)
-    puts 'Станция создана.'
-  rescue RuntimeError => e
-    puts e.message
-    retry
-  end
+  new_station_create
+  new_station_text
+  new_station_choice
+end
 
+def new_station_text
   puts ''
   puts '1. Создать ещё одну станцию.'
   puts '0. Выйти в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def new_station_create
+  Station.new(ask_name)
+  puts 'Станция создана.'
+rescue RuntimeError => e
+  puts e.message
+  retry
+end
+
+def new_station_choice
   choice = gets.chomp.to_i
   case choice
   when 0
@@ -79,6 +90,13 @@ def ask_name
 end
 
 def new_train
+  new_train_menu_text
+  new_train_choice
+  new_train_text
+  new_train_choice2
+end
+
+def new_train_menu_text
   puts ''
   puts '--Создание поезда--'
   puts 'Выберите тип поезда:'
@@ -86,37 +104,47 @@ def new_train
   puts '2. Грузовой.'
   puts '0. Выйти в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def new_train_choice
   choice = gets.chomp.to_i
   case choice
   when 1
-    begin
-      PassengerTrain.new(ask_train_number)
-      puts 'Пассажирский поезд создан.'
-    rescue RuntimeError => e
-      puts e.message
-      retry
-    end
+    pass_train_new
   when 2
-    begin
-      CargoTrain.new(ask_train_number)
-      puts 'Грузовой поезд создан.'
-    rescue RuntimeError => e
-      puts e.message
-      retry
-    end
+    cargo_train_new
   when 0
     main_menu
   else
     wrong_menu_choice
     new_train
   end
+end
 
+def pass_train_new
+  PassengerTrain.new(ask_train_number)
+  puts 'Пассажирский поезд создан.'
+rescue RuntimeError => e
+  puts e.message
+  retry
+end
+
+def cargo_train_new
+  CargoTrain.new(ask_train_number)
+  puts 'Грузовой поезд создан.'
+rescue RuntimeError => e
+  puts e.message
+  retry
+end
+
+def new_train_text
   puts ''
   puts '1. Создать ещё один поезд.'
   puts '0. Выйти в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def new_train_choice2
   choice = gets.chomp.to_i
   case choice
   when 1
@@ -135,13 +163,20 @@ def ask_train_number
 end
 
 def edit_train_menu
+  edit_train_menu_text
+  edit_train_menu_choice
+end
+
+def edit_train_menu_text
   puts ''
   puts '--Меню редактирования поездов--'
   puts '1. Добавить вагоны к поезду и загрузить поезд.'
   puts '2. Поместить поезд на станцию.'
   puts '0. Выйти в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def edit_train_menu_choice
   choice = gets.chomp.to_i
   case choice
   when 1
@@ -165,18 +200,7 @@ def wagons_to_train
     puts "К поезду №#{train.number} уже были прицеплены вагоны."
     edit_train_menu
   else
-    print 'Введите количество вагонов, которое Вы хотите прицепить: '
-    amount = gets.chomp.to_i
-    if train.class == PassengerTrain
-      amount.times do
-        train.add_wagon(Coach.new(36))
-      end
-    else
-      amount.times do
-        train.add_wagon(CargoWagon.new(72))
-      end
-    end
-    load_train(train)
+    wagons_to_train_execute(train)
   end
   edit_train_menu
 end
@@ -184,6 +208,21 @@ end
 def no_train
   puts ''
   puts 'Поезда с таким номером не существует.'
+end
+
+def wagons_to_train_execute(train)
+  print 'Введите количество вагонов, которое Вы хотите прицепить: '
+  amount = gets.chomp.to_i
+  if train.class == PassengerTrain
+    amount.times do
+      train.add_wagon(Coach.new(36))
+    end
+  else
+    amount.times do
+      train.add_wagon(CargoWagon.new(72))
+    end
+  end
+  load_train(train)
 end
 
 def no_station
@@ -219,33 +258,48 @@ def train_to_station
 end
 
 def new_route
+  new_route_menu_text
+  new_route_menu_choice
+  new_route_text2
+  new_route_choice2
+end
+
+def new_route_menu_text
   puts ''
   puts '--Создание маршрута--'
   puts '1. Создать новый маршрут.'
   puts '0. Выйти в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def new_route_menu_choice
   choice = gets.chomp.to_i
   case choice
   when 1
-    begin
-      Route.new(ask_route_number, ask_depst_name, ask_arrst_name)
-      puts 'Маршрут создан.'
-    rescue RuntimeError => e
-      puts e.message
-      retry
-    end
+    new_route_create
   when 0
     main_menu
   else
     wrong_menu_choice
     new_route
   end
+end
 
+def new_route_create
+  Route.new(ask_route_number, ask_depst_name, ask_arrst_name)
+  puts 'Маршрут создан.'
+rescue RuntimeError => e
+  puts e.message
+  retry
+end
+
+def new_route_text2
   puts '1. Создать ещё один маршрут.'
   puts '0. Выйти в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def new_route_choice2
   choice = gets.chomp.to_i
   case choice
   when 1
@@ -276,19 +330,25 @@ def ask_arrst_name
 end
 
 def list_menu
+  list_menu_text
+  list_menu_choice
+end
+
+def list_menu_text
   puts ''
   puts '--Меню вывода сведений о железной дороге--'
   puts '1. Вывести список станций.'
   puts '2. Вывести список поездов.'
   puts '0. Вернуться в главное меню.'
   print 'Введите номер пункта меню: '
+end
 
+def list_menu_choice
   choice = gets.chomp.to_i
   case choice
   when 1
     stations_list
   when 2
-    # puts 2
     trains_list
   when 0
     main_menu
@@ -306,8 +366,7 @@ def stations_list
     puts station.name.to_s
     puts 'Поезда на станции:'
     station.trains_to_block do |train|
-      puts "Поезд №#{train.number}, #{train.type},
-      #{train.wagons_amount} вагонов."
+      puts "Поезд №#{train.number}, #{train.type}, #{train.wagons_amount} вагонов."
     end
   end
   list_menu
@@ -317,24 +376,31 @@ def trains_list
   puts ''
   puts '--Список поездов--'
   Train.all.each do |train|
-    puts ''
-    puts "Поезд №#{train.number}, #{train.type}:"
-    puts 'Вагоны в составе поезда:'
-    if train.class == PassengerTrain
-      train.wagons_to_block_with_index do |wagon, index|
-        puts "Вагон №#{wagon.number}, #{wagon.type},
-       номер в составе поезда #{index}: мест занято #{wagon.taken?},
-       мест свободно #{wagon.free?}."
-      end
-    end
-    next unless train.class == CargoTrain
-    train.wagons_to_block_with_index do |wagon, index|
-      puts "Вагон №#{wagon.number}, #{wagon.type},
-     номер в составе поезда #{index}: загружено #{wagon.loaded?},
-     свободно #{wagon.free?}."
-    end
+    trains_list_text(train)
+    trains_list_pass_train(train) if train.class == PassengerTrain
+    trains_list_cargo_train(train) if train.class == CargoTrain
   end
   list_menu
+end
+
+def trains_list_text(train)
+  puts ''
+  puts "Поезд №#{train.number}, #{train.type}:"
+  puts 'Вагоны в составе поезда:'
+end
+
+def trains_list_pass_train(train)
+  train.wagons_to_block_with_index do |wagon, index|
+    puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}:
+    мест занято #{wagon.taken?}, мест свободно #{wagon.free?}."
+  end
+end
+
+def trains_list_cargo_train(train)
+  train.wagons_to_block_with_index do |wagon, index|
+    puts "Вагон №#{wagon.number}, #{wagon.type}, номер в составе поезда #{index}:
+    загружено #{wagon.loaded?}, свободно #{wagon.free?}."
+  end
 end
 
 def wrong_menu_choice
