@@ -30,7 +30,7 @@ module Validation
       true
     end
 
-    def presence(name,*_args, ins)
+    def presence(name, args, ins)
       raise "Параметр #{name} не может быть пустым." if ins.to_s.empty?
     end
 
